@@ -17,11 +17,11 @@ class PeopleList extends Component {
         />
     }
 
-    rowRenderer = ({index, style}) => {
+    rowRenderer = ({index, style, key}) => {
         const person = this.props.people[index]
 
         return (
-            <div style = {style}>
+            <div style = {style} key={key}>
                 <h2>{person.email}</h2>
                 <h4>{person.firstName} {person.lastName}</h4>
             </div>

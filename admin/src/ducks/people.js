@@ -3,7 +3,7 @@ import {Record, List} from 'immutable'
 import {reset} from 'redux-form'
 import {createSelector} from 'reselect'
 import {takeEvery, put, call} from 'redux-saga/effects'
-import {generateId} from './utils'
+import firebase from 'firebase'
 
 /**
  * Constants
@@ -76,11 +76,14 @@ export function addPerson(person) {
  **/
 
 export const addPersonSaga = function * (action) {
-    const id = yield call(generateId)
-
+    const ref = firebase.database().ref('/people')
+    const person = yield call([ref, ref.push], action.payload)
     yield put({
         type: ADD_PERSON_SUCCESS,
-        payload: {id, ...action.payload}
+        payload: {
+            id: person.key,
+            ...action.payload
+        }
     })
 
     yield put(reset('person'))
