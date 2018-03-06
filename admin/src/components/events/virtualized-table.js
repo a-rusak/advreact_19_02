@@ -43,6 +43,7 @@ export class EventsTableVirtualized extends Component {
             height={500}
             rowCount={events.length}
             rowGetter={this.rowGetter}
+            rowClassName="test-virtualized-table-row"
             rowHeight={50}
             headerHeight={100}
             overscanRowCount={0}
