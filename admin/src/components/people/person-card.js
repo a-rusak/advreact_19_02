@@ -13,13 +13,13 @@ class PersonCard extends Component {
     }
 
     render() {
-        const { person, connectDragSource, isDragging } = this.props
+        const { person, connectDragSource, isDragging, style = {} } = this.props
 
         const dndStyles = {
             opacity: isDragging ? 0.2 : 1
         }
         return (
-            <div style = {dndStyles}>
+            <div style = {{...dndStyles, ...style}}>
                 {connectDragSource(<h1>{person.firstName} <b>{person.lastName}</b></h1>)}
                 <h3>{person.email}</h3>
             </div>
