@@ -4905,3 +4905,32 @@ const data = {
 const objToArr = obj => Object.keys(obj).map((uid) => ({ uid, ...obj[uid]}))
 
 export const eventList = objToArr(data.events)
+
+const sectionEventList = [...eventList];
+const compareTitle = (confA, confB) => {
+  const titleA = confA.title.toUpperCase();
+  const titleB = confB.title.toUpperCase();
+  if (titleA > titleB) {
+    return 1;
+  }
+  if (titleA < titleB) {
+    return -1;
+  }
+  return 0;
+};
+
+const sectionEvents = [...eventList]
+  .sort(compareTitle)
+  .reduce((acc, conf) => {
+    const sectionTitle = conf.title[0].toUpperCase();
+    if (typeof acc[sectionTitle] === 'undefined') {
+      acc[sectionTitle] = Object.create(null);
+      acc[sectionTitle].data = [];
+    }
+    acc[sectionTitle].data.push(conf);
+    acc[sectionTitle].title = sectionTitle;
+    acc[sectionTitle].num = acc[sectionTitle].data.length
+    return acc;
+  }, Object.create(null));
+
+export const sectionEventsList = objToArr(sectionEvents);
